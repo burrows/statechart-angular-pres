@@ -6,16 +6,16 @@
 
 		<title>reveal.js - The HTML Presentation Framework</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+		<meta name="description" content="An introduction to using Statecharts.">
+		<meta name="author" content="Corey Burrows">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -43,33 +43,206 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>Reveal.js</h1>
-					<h3>HTML Presentations Made Easy</h3>
-					<p>
-						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
-					</p>
+					<h1>Statecharts</h1>
 				</section>
 
 				<section>
-					<h2>Pretty Code</h2>
+					<h2>Sidescroller Game</h2>
 					<pre><code data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
+function Hero() {
+}
 
-    var nodes = document.querySelectorAll( selector );
+Hero.prototype = {
+  handleInput: function(event) {
+    if (event.type == BUTTON_B) {
+      this.jump();
+    }
+  },
 
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
+  jump: function() {
+    // animate jump...
+  }
+};
+					</code></pre>
+				</section>
 
-      if( !node.className ) {
-        node.className += ' roll';
+				<section>
+					<h2>Jump Bugfix</h2>
+					<pre><code data-trim contenteditable>
+Hero.prototype = {
+  handleInput: function(event) {
+    var self = this;
+
+    if (event.type == BUTTON_B) {
+      if (!this._isJumping) {
+        this._isJumping = true;
+        this.jump(function() {
+          self._isJumping = false;
+        });
       }
     }
+  },
+
+  jump: function(callback) {
+    // animate jump, then invoke callback.
+  }
+};
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Duck</h2>
+					<pre><code data-trim contenteditable>
+Hero.prototype = {
+  handleInput: function(event) {
+    var self = this;
+
+    if (event.type == BUTTON_B) {
+      if (!this._isJumping) {
+        this._isJumping = true;
+        this.jump(function() {
+          self._isJumping = false;
+        });
+      }
+    }
+    else if (event.type == PRESS_DOWN) {
+      if (!this._isJumping) {
+        this.duck();
+      }
+    }
+    else if (event.type == RELEASE_DOWN) {
+      this.stand();
+    }
+  },
+
+  jump: function(callback) {},
+  duck: function() {},
+  stand: function() {}
+};
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Duck Bugfix</h2>
+					<pre><code data-trim contenteditable>
+Hero.prototype = {
+  handleInput: function(event) {
+    var self = this;
+
+    if (event.type == BUTTON_B) {
+      if (!this._isJumping && !this._isDucking) {
+        this._isJumping = true;
+        this.jump(function() {
+          self._isJumping = false;
+        });
+      }
+    }
+    else if (event.type == PRESS_DOWN) {
+      if (!this._isJumping) {
+        this._isDucking = true;
+        this.duck();
+      }
+    }
+    else if (event.type == RELEASE_DOWN) {
+      if (this._isDucking) {
+        this._isDucking = false;
+        this.stand();
+      }
+    }
+  },
+
+  jump: function(callback) {},
+  duck: function() {},
+  stand: function() {}
+};
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Dive</h2>
+					<pre><code data-trim contenteditable>
+Hero.prototype = {
+  handleInput: function(event) {
+    var self = this;
+
+    if (event.type == BUTTON_B) {
+      if (!this._isJumping && !this._isDucking) {
+        this._isJumping = true;
+        this.jump(function() {
+          self._isJumping = false;
+        });
+      }
+    }
+    else if (event.type == PRESS_DOWN) {
+      if (!this._isJumping) {
+        this._isDucking = true;
+        this.duck();
+      }
+      else {
+        this._isJumping = false;
+        this.dive();
+      }
+    }
+    else if (event.type == RELEASE_DOWN) {
+      if (this._isDucking) {
+        this._isDucking = false;
+        this.stand();
+      }
+    }
+  },
+
+  jump: function(callback) {},
+  duck: function() {},
+  stand: function() {},
+  dive: function() {}
+};
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>State machine</h2>
+					<pre><code data-trim contenteditable>
+function Hero() {
+  var self = this;
+
+  this._stateMachine = State.define(function() {
+    this.state('standing', function() {
+      this.enter(function() { self.stand(); });
+      this.event('pressB', function() { this.goto('jumping'); });
+    });
+
+    this.state('ducking', function() {
+      this.enter(function() { self.duck(); });
+      this.event('releaseDown', function() { this.goto('standing'); });
+    });
+
+    this.state('jumping', function() {
+      this.enter(function() { self.jump(); });
+      this.event('pressDown', function() { this.goto('diving'); });
+      this.event('jumpFinished', function() { this.goto('standing'); });
+    });
+
+    this.state('diving', function() {
+      this.enter(function() { self.dive(); });
+      this.event('diveFinished', function() { this.goto('standing'); });
+    });
+  });
+}
+
+Hero.prototype = {
+  jump: function() {
+    // do jump
+    this._stateMachine.send('jumpFinished');
+  },
+  duck: function() {},
+  stand: function() {},
+  dive: function() {
+    // do jump
+    this._stateMachine.send('diveFinished');
   }
 }
 					</code></pre>
 				</section>
-
 
 			</div>
 
