@@ -244,6 +244,153 @@ Hero.prototype = {
 					</code></pre>
 				</section>
 
+				<section>
+					<h2>FSM Car Example</h2>
+          <img src="./img/car-fsm1.png">
+        </section>
+
+				<section>
+					<h2>FSM Car Example</h2>
+          <img src="./img/car-fsm2.png">
+        </section>
+
+				<section>
+					<h2>FSM Car Example</h2>
+          <img src="./img/car-fsm3.png">
+        </section>
+
+				<section>
+					<h2>FSM Car Example</h2>
+          <img src="./img/car-fsm4.png">
+        </section>
+
+				<section>
+					<h2>Solution: Statecharts!</h2>
+          <img src="./img/basic-car-statechart.png">
+        </section>
+
+				<section>
+					<h2>What is a statechart?</h2>
+          <ul>
+            <li>A visual diagram for describing the behavior of a system.</li>
+            <ul>
+              <li>hierarchical states</li>
+              <li>orthogonal states</li>
+              <li>history states</li>
+            </ul>
+          </ul>
+        </section>
+
+				<section>
+					<h2>Hierarchical states</h2>
+          <ul>
+            <li>A parent state is the XOR of its substates.</li>
+            <li>To be in state P, one must be in either state C1 or state C2, but not both.</li>
+            <li>P is an abstraction of C1 and C2 and allows you to denote common properties of both in an economical way.</li>
+            <li><strong>Important:</strong> A statechart's current state must always be leaf state.</li>
+          </ul>
+          <img src="./img/hierarchy.png">
+        </section>
+
+				<section>
+					<h2>Orthogonal (Parallel) states</h2>
+          <ul>
+            <li>AND decomposition: being in a state - the system must be in all of its components.</li>
+            <li>At any given point in time a statechart will be in a vector of states whose length is not fixed.</li>
+            <li><code>(A ⊕ B) ∧ (C ⊕ D) ∧ (E ⊕ F)</code></li>
+            <li>Eg: <code>P1.A, P2.D, P3.E</code></li>
+            <li>Syncronicity - a single event causes multiple simultaneous happenings.</li>
+          </ul>
+          <img src="./img/orthogonal.png">
+        </section>
+
+				<section>
+					<h2>History states</h2>
+          <ul>
+            <li>When entering this parent state, transition to the most recently exited child state.</li>
+            <li>If this is the first time entering this parent state, transition to the default child state.</li>
+          </ul>
+          <img src="./img/basic-car-statechart.png">
+        </section>
+
+				<section>
+					<h2>Events</h2>
+          <ul>
+            <li>Usually triggered by the user (e.g. clicking a button, focusing a field, etc.)</li>
+            <li>When an event is sent to the statechart, each current state is given the opportunity to handle it.</li>
+            <li>Events bubble up the parent state chain.</li>
+          </ul>
+        </section>
+
+				<section>
+					<h2>Transitions</h2>
+          <ul>
+            <li>When a state handles an event, it typically triggers a state transition.</li>
+            <li>Transitions start from the current state (or states) and traverse up to the pivot state, triggering exit state handlers along the way.</li>
+            <li>From the pivot state, child states are traversed, triggering enter state handlers until the final substate is reached.</li>
+          </ul>
+        </section>
+
+				<section>
+					<h2><code>C1.2 -> C2.1</code></h2>
+          <img src="./img/transition-ex1.png">
+        </section>
+
+				<section>
+					<h2><code>C1.2 -> C2.1</code></h2>
+          <img src="./img/transition-ex2.png">
+        </section>
+
+				<section>
+					<h2><code>C1.2 -> C2.1</code></h2>
+          <img src="./img/transition-ex3.png">
+        </section>
+
+				<section>
+					<h3><code>(W.P1.B, W.P2.D, W.P3.E) -> W.X.Z</code></h3>
+          <img src="./img/transition-ex4.png">
+        </section>
+
+				<section>
+					<h3><code>(W.P1.B, W.P2.D, W.P3.E) -> W.X.Z</code></h3>
+          <img src="./img/transition-ex5.png">
+        </section>
+
+				<section>
+					<h3><code>(W.P1.B, W.P2.D, W.P3.E) -> W.X.Z</code></h3>
+          <img src="./img/transition-ex6.png">
+        </section>
+
+				<section>
+					<h3><code>W.X.Z -> (W.P1.B, W.P2.D, W.P3.E)</code></h3>
+          <img src="./img/transition-ex7.png">
+        </section>
+
+				<section>
+					<h3>CMM Usage</h2>
+          <ul>
+            <li>A <code>$state</code> service is shared between statechart and views.</li>
+            <li>States set <code>$state</code> properties upon entry.</li>
+            <li>States clean up <code>$state</code> properties upon exit.</li>
+            <li>Views configure themselves according to <code>$state</code> properties.</li>
+            <li>Views convert raw events to semantic events and forward to statechart.</li>
+          </ul>
+        </section>
+
+				<section>
+					<h3>Routing</h2>
+          <ul>
+            <li>States are mapped to route patterns.</li>
+            <li>When the location changes to match a route pattern, a transition is triggered to the state that is mapped to the matching pattern.</li>
+            <li>When a state is entered, a path is generated from its route pattern and set to the current location.</li>
+            <li>Query params are used to handle concurrent states.</li>
+          </ul>
+        </section>
+
+				<section>
+					<h3>CMM Example</h2>
+        </section>
+
 			</div>
 
 		</div>
