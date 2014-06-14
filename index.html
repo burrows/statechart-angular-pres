@@ -1,58 +1,58 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
 
-		<title>Statecharts</title>
+    <title>Statecharts</title>
 
-		<meta name="description" content="An introduction to using Statecharts.">
-		<meta name="author" content="Corey Burrows">
+    <meta name="description" content="An introduction to using Statecharts.">
+    <meta name="author" content="Corey Burrows">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/simple.css" id="theme">
 
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
-		<script>
-			if( window.location.search.match( /print-pdf/gi ) ) {
-				var link = document.createElement( 'link' );
-				link.rel = 'stylesheet';
-				link.type = 'text/css';
-				link.href = 'css/print/pdf.css';
-				document.getElementsByTagName( 'head' )[0].appendChild( link );
-			}
-		</script>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
 
-	<body>
+  <body>
 
-		<div class="reveal">
+    <div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
-				<section>
-					<h1>Statecharts</h1>
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h1>Statecharts</h1>
           <h3>UI Summit</h3>
           <p>
             <small>May 13, 2014</small>
           </p>
-				</section>
+        </section>
 
-				<section>
-					<h2>Sidescroller Game</h2>
-					<pre><code data-trim contenteditable>
+        <section>
+          <h2>Sidescroller Game</h2>
+          <pre><code data-trim contenteditable>
 function Hero() {
 }
 
@@ -67,12 +67,12 @@ Hero.prototype = {
     // animate jump...
   }
 };
-					</code></pre>
-				</section>
+          </code></pre>
+        </section>
 
-				<section>
-					<h2>Jump Bugfix</h2>
-					<pre><code data-trim contenteditable>
+        <section>
+          <h2>Jump Bugfix</h2>
+          <pre><code data-trim contenteditable>
 Hero.prototype = {
   handleInput: function(event) {
     var self = this;
@@ -91,12 +91,12 @@ Hero.prototype = {
     // animate jump, then invoke callback.
   }
 };
-					</code></pre>
-				</section>
+          </code></pre>
+        </section>
 
-				<section>
-					<h2>Duck</h2>
-					<pre><code data-trim contenteditable>
+        <section>
+          <h2>Duck</h2>
+          <pre><code data-trim contenteditable>
 Hero.prototype = {
   handleInput: function(event) {
     var self = this;
@@ -123,12 +123,12 @@ Hero.prototype = {
   duck: function() {},
   stand: function() {}
 };
-					</code></pre>
-				</section>
+          </code></pre>
+        </section>
 
-				<section>
-					<h2>Duck Bugfix</h2>
-					<pre><code data-trim contenteditable>
+        <section>
+          <h2>Duck Bugfix</h2>
+          <pre><code data-trim contenteditable>
 Hero.prototype = {
   handleInput: function(event) {
     var self = this;
@@ -159,12 +159,12 @@ Hero.prototype = {
   duck: function() {},
   stand: function() {}
 };
-					</code></pre>
-				</section>
+          </code></pre>
+        </section>
 
-				<section>
-					<h2>Dive</h2>
-					<pre><code data-trim contenteditable>
+        <section>
+          <h2>Dive</h2>
+          <pre><code data-trim contenteditable>
 Hero.prototype = {
   handleInput: function(event) {
     var self = this;
@@ -200,17 +200,17 @@ Hero.prototype = {
   stand: function() {},
   dive: function() {}
 };
-					</code></pre>
-				</section>
+          </code></pre>
+        </section>
 
         <section>
-					<h2>State machine</h2>
+          <h2>State machine</h2>
           <img src="./img/state-flowchart.png">
         </section>
 
-				<section>
-					<h2>State machine</h2>
-					<pre><code data-trim contenteditable>
+        <section>
+          <h2>State machine</h2>
+          <pre><code data-trim contenteditable>
 function Hero() {
   var self = this;
 
@@ -250,36 +250,36 @@ Hero.prototype = {
     this._stateMachine.send('diveFinished');
   }
 }
-					</code></pre>
-				</section>
+          </code></pre>
+        </section>
 
-				<section>
-					<h2>FSM Car Example</h2>
+        <section>
+          <h2>FSM Car Example</h2>
           <img src="./img/car-fsm1.png">
         </section>
 
-				<section>
-					<h2>FSM Car Example</h2>
+        <section>
+          <h2>FSM Car Example</h2>
           <img src="./img/car-fsm2.png">
         </section>
 
-				<section>
-					<h2>FSM Car Example</h2>
+        <section>
+          <h2>FSM Car Example</h2>
           <img src="./img/car-fsm3.png">
         </section>
 
-				<section>
-					<h2>FSM Car Example</h2>
+        <section>
+          <h2>FSM Car Example</h2>
           <img src="./img/car-fsm4.png">
         </section>
 
-				<section>
-					<h2>Solution: Statecharts!</h2>
+        <section>
+          <h2>Solution: Statecharts!</h2>
           <img src="./img/basic-car-statechart.png">
         </section>
 
-				<section>
-					<h2>What is a statechart?</h2>
+        <section>
+          <h2>What is a statechart?</h2>
           <ul>
             <li>A visual diagram for describing the behavior of a system.</li>
             <ul>
@@ -290,8 +290,8 @@ Hero.prototype = {
           </ul>
         </section>
 
-				<section>
-					<h2>Hierarchical states</h2>
+        <section>
+          <h2>Hierarchical states</h2>
           <ul>
             <li>A parent state is the XOR of its substates.</li>
             <li>To be in state P, one must be in either state C1 or state C2, but not both.</li>
@@ -301,8 +301,8 @@ Hero.prototype = {
           <img src="./img/hierarchy.png">
         </section>
 
-				<section>
-					<h2>Orthogonal (Parallel) states</h2>
+        <section>
+          <h2>Orthogonal (Parallel) states</h2>
           <ul>
             <li>AND decomposition: being in a state - the system must be in all of its components.</li>
             <li>At any given point in time a statechart will be in a vector of states whose length is not fixed.</li>
@@ -313,8 +313,8 @@ Hero.prototype = {
           <img src="./img/orthogonal.png">
         </section>
 
-				<section>
-					<h2>History states</h2>
+        <section>
+          <h2>History states</h2>
           <ul>
             <li>When entering this parent state, transition to the most recently exited child state.</li>
             <li>If this is the first time entering this parent state, transition to the default child state.</li>
@@ -322,8 +322,8 @@ Hero.prototype = {
           <img src="./img/basic-car-statechart.png">
         </section>
 
-				<section>
-					<h2>Events</h2>
+        <section>
+          <h2>Events</h2>
           <ul>
             <li>Usually triggered by the user (e.g. clicking a button, focusing a field, etc.)</li>
             <li>When an event is sent to the statechart, each current state is given the opportunity to handle it.</li>
@@ -331,8 +331,8 @@ Hero.prototype = {
           </ul>
         </section>
 
-				<section>
-					<h2>Transitions</h2>
+        <section>
+          <h2>Transitions</h2>
           <ul>
             <li>When a state handles an event, it typically triggers a state transition.</li>
             <li>Transitions start from the current state (or states) and traverse up to the pivot state, triggering exit state handlers along the way.</li>
@@ -340,43 +340,43 @@ Hero.prototype = {
           </ul>
         </section>
 
-				<section>
-					<h2><code>C1.2 -> C2.1</code></h2>
+        <section>
+          <h2><code>C1.2 -> C2.1</code></h2>
           <img src="./img/transition-ex1.png">
         </section>
 
-				<section>
-					<h2><code>C1.2 -> C2.1</code></h2>
+        <section>
+          <h2><code>C1.2 -> C2.1</code></h2>
           <img src="./img/transition-ex2.png">
         </section>
 
-				<section>
-					<h2><code>C1.2 -> C2.1</code></h2>
+        <section>
+          <h2><code>C1.2 -> C2.1</code></h2>
           <img src="./img/transition-ex3.png">
         </section>
 
-				<section>
-					<h3><code>(W.P1.B, W.P2.D, W.P3.E) -> W.X.Z</code></h3>
+        <section>
+          <h3><code>(W.P1.B, W.P2.D, W.P3.E) -> W.X.Z</code></h3>
           <img src="./img/transition-ex4.png">
         </section>
 
-				<section>
-					<h3><code>(W.P1.B, W.P2.D, W.P3.E) -> W.X.Z</code></h3>
+        <section>
+          <h3><code>(W.P1.B, W.P2.D, W.P3.E) -> W.X.Z</code></h3>
           <img src="./img/transition-ex5.png">
         </section>
 
-				<section>
-					<h3><code>(W.P1.B, W.P2.D, W.P3.E) -> W.X.Z</code></h3>
+        <section>
+          <h3><code>(W.P1.B, W.P2.D, W.P3.E) -> W.X.Z</code></h3>
           <img src="./img/transition-ex6.png">
         </section>
 
-				<section>
-					<h3><code>W.X.Z -> (W.P1.B, W.P2.D, W.P3.E)</code></h3>
+        <section>
+          <h3><code>W.X.Z -> (W.P1.B, W.P2.D, W.P3.E)</code></h3>
           <img src="./img/transition-ex7.png">
         </section>
 
-				<section>
-					<h3>CMM Usage</h2>
+        <section>
+          <h3>CMM Usage</h2>
           <ul>
             <li>A <code>$state</code> service is shared between statechart and views.</li>
             <li>States set <code>$state</code> properties upon entry.</li>
@@ -386,8 +386,8 @@ Hero.prototype = {
           </ul>
         </section>
 
-				<section>
-					<h3>Routing</h2>
+        <section>
+          <h3>Routing</h2>
           <ul>
             <li>States are mapped to route patterns.</li>
             <li>When the location changes to match a route pattern, a transition is triggered to the state that is mapped to the matching pattern.</li>
@@ -396,46 +396,46 @@ Hero.prototype = {
           </ul>
         </section>
 
-				<section>
-					<h3>CMM Example</h2>
+        <section>
+          <h3>CMM Example</h2>
         </section>
 
-			</div>
+      </div>
 
-		</div>
+    </div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
 
-		<script>
+    <script>
 
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
 
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
-				// Parallax scrolling
-				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-				// parallaxBackgroundSize: '2100px 900px',
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
 
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-				]
-			});
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
 
-		</script>
+    </script>
 
-	</body>
+  </body>
 </html>
