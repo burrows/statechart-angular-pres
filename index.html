@@ -4,9 +4,9 @@
   <head>
     <meta charset="utf-8">
 
-    <title>Statecharts</title>
+    <title>Statecharts and Angular.js</title>
 
-    <meta name="description" content="An introduction to using Statecharts.">
+    <meta name="description" content="Statecharts and Angular.js">
     <meta name="author" content="Corey Burrows">
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -19,6 +19,13 @@
 
     <!-- For syntax highlighting -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <style type="text/css">
+    pre.left {
+      width: 50%;
+      float: left;
+    }
+    </style>
 
     <!-- If the query includes 'print-pdf', include the PDF print sheet -->
     <script>
@@ -43,11 +50,14 @@
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
         <section>
-          <h1>Statecharts</h1>
-          <h3>UI Summit</h3>
+          <h2>Statecharts and Angular.js</h2>
           <p>
-            <small>May 13, 2014</small>
+            <small>June 24, 2014</small>
           </p>
+        </section>
+
+        <section>
+          <h2>Motivation: Sidescroller game</h2>
         </section>
 
         <section>
@@ -282,10 +292,14 @@ Hero.prototype = {
           <h2>What is a statechart?</h2>
           <ul>
             <li>A visual diagram for describing the behavior of a system.</li>
+            <li>
+              An extension to a traditional state machine that provides the following features:
+            </li>
             <ul>
               <li>hierarchical states</li>
               <li>orthogonal states</li>
               <li>history states</li>
+              <li>condition states</li>
             </ul>
           </ul>
         </section>
@@ -298,6 +312,18 @@ Hero.prototype = {
             <li>P is an abstraction of C1 and C2 and allows you to denote common properties of both in an economical way.</li>
             <li><strong>Important:</strong> A statechart's current state must always be leaf state.</li>
           </ul>
+        </section>
+
+        <section>
+          <h2>Hierarchical states</h2>
+          <pre class="left"><code data-trim contenteditable>
+State.define(function() {
+  this.state('P', function() {
+    this.state('C1');
+    this.state('C2');
+  });
+});
+          </code></pre>
           <img src="./img/hierarchy.png">
         </section>
 
@@ -310,15 +336,43 @@ Hero.prototype = {
             <li>Eg: <code>P1.A, P2.D, P3.E</code></li>
             <li>Syncronicity - a single event causes multiple simultaneous happenings.</li>
           </ul>
+        </section>
+
+        <section>
+          <h2>Orthogonal (Parallel) states</h2>
+          <pre class="left"><code data-trim contenteditable>
+State.define({concurrent: true}, function() {
+  this.state('P1', function() {
+    this.state('A');
+    this.state('B');
+  });
+
+  this.state('P2', function() {
+    this.state('C');
+    this.state('D');
+  });
+
+  this.state('P3', function() {
+    this.state('E');
+    this.state('F');
+  });
+});
+          </code></pre>
           <img src="./img/orthogonal.png">
         </section>
 
         <section>
           <h2>History states</h2>
           <ul>
-            <li>When entering this parent state, transition to the most recently exited child state.</li>
-            <li>If this is the first time entering this parent state, transition to the default child state.</li>
+            <li>When entering a parent state, transition to the most recently exited child state.</li>
+            <li>If this is the first time entering the parent state, transition to the default child state.</li>
           </ul>
+          <pre class="left"><code data-trim contenteditable>
+this.state('radio', {H: true}, function() {
+  this.state('off');
+  this.state('on');
+});
+          </code></pre>
           <img src="./img/basic-car-statechart.png">
         </section>
 
@@ -376,13 +430,14 @@ Hero.prototype = {
         </section>
 
         <section>
-          <h3>CMM Usage</h2>
+          <h3>Statecharts in Angular.js</h2>
           <ul>
             <li>A <code>$state</code> service is shared between statechart and views.</li>
             <li>States set <code>$state</code> properties upon entry.</li>
             <li>States clean up <code>$state</code> properties upon exit.</li>
             <li>Views configure themselves according to <code>$state</code> properties.</li>
             <li>Views convert raw events to semantic events and forward to statechart.</li>
+            <li><a href="http://plnkr.co/edit/GZRos6?p=preview">Example</a></li>
           </ul>
         </section>
 
@@ -394,10 +449,6 @@ Hero.prototype = {
             <li>When a state is entered, a path is generated from its route pattern and set to the current location.</li>
             <li>Query params are used to handle concurrent states.</li>
           </ul>
-        </section>
-
-        <section>
-          <h3>CMM Example</h2>
         </section>
 
       </div>
