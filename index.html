@@ -58,6 +58,7 @@
 
         <section>
           <h2>Motivation: Sidescroller game</h2>
+          Example from: <a href="http://gameprogrammingpatterns.com/state.html">Game Programming Patterns: State</a>
         </section>
 
         <section>
@@ -173,7 +174,7 @@ Hero.prototype = {
         </section>
 
         <section>
-          <h2>Dive</h2>
+          <h2>Dive Attack</h2>
           <pre><code data-trim contenteditable>
 Hero.prototype = {
   handleInput: function(event) {
@@ -214,12 +215,12 @@ Hero.prototype = {
         </section>
 
         <section>
-          <h2>State machine</h2>
+          <h2>Finite State Machine</h2>
           <img src="./img/state-flowchart.png">
         </section>
 
         <section>
-          <h2>State machine</h2>
+          <h2>Finite State Machine</h2>
           <pre><code data-trim contenteditable>
 function Hero() {
   var self = this;
@@ -259,7 +260,7 @@ Hero.prototype = {
     // do jump
     this._stateMachine.send('diveFinished');
   }
-}
+};
           </code></pre>
         </section>
 
@@ -299,7 +300,6 @@ Hero.prototype = {
               <li>hierarchical states</li>
               <li>orthogonal states</li>
               <li>history states</li>
-              <li>condition states</li>
             </ul>
           </ul>
         </section>
@@ -307,11 +307,12 @@ Hero.prototype = {
         <section>
           <h2>Hierarchical states</h2>
           <ul>
-            <li>A parent state is the XOR of its substates.</li>
+            <li>A parent state is the XOR of its child states.</li>
             <li>To be in state P, one must be in either state C1 or state C2, but not both.</li>
-            <li>P is an abstraction of C1 and C2 and allows you to denote common properties of both in an economical way.</li>
+            <li>P is an abstraction of C1 and C2 which allows you to denote common properties of both in an economical way.</li>
             <li><strong>Important:</strong> A statechart's current state must always be leaf state.</li>
           </ul>
+          <img src="./img/hierarchy.png">
         </section>
 
         <section>
@@ -336,6 +337,7 @@ State.define(function() {
             <li>Eg: <code>P1.A, P2.D, P3.E</code></li>
             <li>Syncronicity - a single event causes multiple simultaneous happenings.</li>
           </ul>
+          <img src="./img/orthogonal.png">
         </section>
 
         <section>
@@ -389,8 +391,8 @@ this.state('radio', {H: true}, function() {
           <h2>Transitions</h2>
           <ul>
             <li>When a state handles an event, it typically triggers a state transition.</li>
-            <li>Transitions start from the current state (or states) and traverse up to the pivot state, triggering exit state handlers along the way.</li>
-            <li>From the pivot state, child states are traversed, triggering enter state handlers until the final substate is reached.</li>
+            <li>Transitions start from the current state (or states) and traverse up to the pivot state, triggering <code>exit</code> handlers along the way.</li>
+            <li>From the pivot state, child states are traversed, triggering <code>enter</code> handlers until the final substate is reached.</li>
           </ul>
         </section>
 
@@ -437,7 +439,8 @@ this.state('radio', {H: true}, function() {
             <li>States clean up <code>$state</code> properties upon exit.</li>
             <li>Views configure themselves according to <code>$state</code> properties.</li>
             <li>Views convert raw events to semantic events and forward to statechart.</li>
-            <li><a href="http://plnkr.co/edit/GZRos6?p=preview">Example</a></li>
+            <li><a href="http://plnkr.co/edit/GZRos6?p=preview">Example 1</a></li>
+            <li><a href="http://plnkr.co/edit/mybhpY?p=preview">Example 2</a></li>
           </ul>
         </section>
 
@@ -446,8 +449,16 @@ this.state('radio', {H: true}, function() {
           <ul>
             <li>States are mapped to route patterns.</li>
             <li>When the location changes to match a route pattern, a transition is triggered to the state that is mapped to the matching pattern.</li>
-            <li>When a state is entered, a path is generated from its route pattern and set to the current location.</li>
+            <li>When a state with a defined route is entered, a path is generated from its route pattern and set to the current location.</li>
             <li>Query params are used to handle concurrent states.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Alternatives</h2>
+          <ul>
+            <li>Angular's <a href="https://docs.angularjs.org/api/ngRoute/service/$route"><code>$route</code></a> service.</li>
+            <li>AngularUI's <a href="https://github.com/angular-ui/ui-router">ui-router</a>.</li>
           </ul>
         </section>
 
@@ -457,6 +468,7 @@ this.state('radio', {H: true}, function() {
             <li><a href="http://www.wisdom.weizmann.ac.il/~harel/papers/Statecharts.pdf">Statecharts.pdf</a></li>
             <li><a href="http://www.wisdom.weizmann.ac.il/~harel/papers/Statecharts.History.pdf">Statecharts.History.pdf</a></li>
             <li><a href="http://www.amazon.com/dp/0201342782">Constructing the User Interface with Statecharts</a></li>
+            <li><a href="https://github.com/burrows/statechart.js">statechart.js</a></li>
           </ul>
         </section>
 
