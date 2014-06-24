@@ -329,7 +329,7 @@ State.define(function() {
         </section>
 
         <section>
-          <h2>Orthogonal (Parallel) states</h2>
+          <h2>Orthogonal (Concurrent) states</h2>
           <ul>
             <li>AND decomposition: being in a state - the system must be in all of its components.</li>
             <li>At any given point in time a statechart will be in a vector of states whose length is not fixed.</li>
@@ -341,7 +341,7 @@ State.define(function() {
         </section>
 
         <section>
-          <h2>Orthogonal (Parallel) states</h2>
+          <h2>Orthogonal (Concurrent) states</h2>
           <pre class="left"><code data-trim contenteditable>
 State.define({concurrent: true}, function() {
   this.state('P1', function() {
